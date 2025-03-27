@@ -13,11 +13,12 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log(container);
+    // console.log(container); // Optional: keep for debugging if needed
   }, []);
 
   return (
-    <main className="relative min-h-screen bg-[#0A0A0F]">
+    // Add relative positioning here so absolute positioning inside works correctly
+    <main className="relative min-h-screen bg-[#0A0A0F] overflow-hidden">
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -25,7 +26,7 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
         options={{
           background: {
             color: {
-              value: "transparent",
+              value: "transparent", // Keep transparent as it's behind content now
             },
           },
           fpsLimit: 120,
@@ -68,8 +69,12 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
           },
           detectRetina: true,
         }}
-        className="fixed inset-0"
+        // **** KEY CHANGE ****
+        // Position absolutely within the main container, covering it,
+        // and set z-index to 0 (or -1) to be behind the content.
+        className="absolute inset-0 z-0"
       />
+      {/* Ensure content is relatively positioned and has a higher z-index */}
       <div className="relative z-10">
         {children}
       </div>
@@ -77,4 +82,4 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   );
 };
 
-export default HomeLayout; 
+export default HomeLayout;
