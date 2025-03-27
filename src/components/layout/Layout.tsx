@@ -1,12 +1,14 @@
 import React, { PropsWithChildren } from 'react';
 import Navigation from './Navigation'; // Import Navigation
+import { Footer } from './Footer'; // Import Footer
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="relative">
+    <div className="relative flex flex-col min-h-screen">
       <Navigation /> {/* Use Navigation component here */}
-      <main>{children}</main>
-      {/* Add the script here, inside the main div */}
+      <main className="flex-grow">{children}</main>
+      <Footer /> {/* Add Footer component here */}
+
       <script
         dangerouslySetInnerHTML={{
           __html: `

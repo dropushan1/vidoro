@@ -3,7 +3,6 @@ import Hero from "@/components/home/Hero";
 import ServiceBoxes from "@/components/home/ServiceBoxes";
 import Testimonials from "@/components/home/Testimonials";
 import TeamAndScenes from "@/components/home/TeamAndScenes";
-import { Footer } from '@/components/layout/Footer';
 import HomeLayout from "@/components/home/HomeLayout";
 import { motion } from "framer-motion";
 
@@ -53,14 +52,6 @@ const Index = () => {
         viewport={{ once: true }}
       >
         <TeamAndScenes />
-      </motion.div>
-      <motion.div
-        variants={componentVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <Footer />
       </motion.div>
     </HomeLayout>
   );

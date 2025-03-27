@@ -20,14 +20,14 @@ const ServiceBoxes = () => {
 
   const services: Service[] = [
     {
-      title: "Expert Translators",
-      desc: "Native Hindi speakers with deep cultural insight",
+      title: "Advanced Translation",
+      desc: "Combining AI tools with expert human review.",
       icon: MdTranslate,
       gradient: "from-purple-600 to-blue-500"
     },
     {
       title: "Fast Turnaround",
-      desc: "Get your translated videos within 12-72 hours",
+      desc: "Get your translated videos within 8-24 hours",
       icon: MdTimer,
       gradient: "from-red-500 to-orange-500"
     },

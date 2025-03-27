@@ -83,7 +83,7 @@ export default function TermsPage() {
             <ul className="list-disc list-inside space-y-2 mt-3">
               <li>
                 <strong>Turnaround Time:</strong> Our standard delivery time for
-                translated videos is between 12-48 hours after we have received
+                translated videos is between 8-24 hours after we have received
                 all required project assets. Delivery times may vary depending
                 on complexity and project queue.
               </li>
@@ -102,8 +102,7 @@ export default function TermsPage() {
             </h2>
             <ul className="list-disc list-inside space-y-2 mt-3">
               <li>
-                <strong>Pricing:</strong> Our services are provided at a flat
-                rate of $10 USD per minute of video.
+                <strong>Pricing:</strong> Our services varies per pack.
               </li>
               <li>
                 <strong>Payment Methods:</strong> We accept payments via PayPal,

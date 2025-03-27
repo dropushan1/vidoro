@@ -139,7 +139,7 @@ const ContactUs = () => {
                             {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message.message}</p>}
                         </div>
 
-                        <p className="text-center text-gray-400">We will get back to you within 24 hours</p>
+                        <p className="text-center text-gray-400">We will get back to you within a few hours</p>
 
                         <Button
                             type="submit"
@@ -151,7 +151,7 @@ const ContactUs = () => {
                     </form>
 
                     <div className="mt-12 text-center">
-                        <p className="mb-2 text-gray-400">Or reach us directly at:</p>
+                        <p className="mb-2 text-gray-400">Contact us by email:</p>
                         <a href="mailto:contact@vidoro.agency" className="text-indigo-400 hover:text-indigo-300 transition-colors">
                             contact@vidoro.agency
                         </a>

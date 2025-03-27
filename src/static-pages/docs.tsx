@@ -217,17 +217,13 @@ export default function DocsPage() {
             </p>
             <ul className="list-disc list-inside space-y-2 mt-3 text-gray-300 leading-relaxed">
               <li>
-                <strong className="text-gray-200">Flat Rate:</strong> $10 USD
-                per minute of video.
+                <strong className="text-gray-200">Plus Pack:</strong> $147 (60 Minutes)
               </li>
               <li>
-                <strong className="text-gray-200">All-Inclusive:</strong> This
-                price includes voiceovers, editing, translation, and all other
-                necessary services.
+                <strong className="text-gray-200">Pro Pack:</strong> $378 (180 Minutes) - Most Popular
               </li>
               <li>
-                <strong className="text-gray-200">Example Cost:</strong> For a
-                10-minute video, the cost would be $100 USD.
+                <strong className="text-gray-200">Elite Pack:</strong> $693 (360 Minutes)
               </li>
             </ul>
           </div>
