@@ -62,11 +62,11 @@ const Work = () => {
 
   const logos = [
     "https://yt3.googleusercontent.com/ytc/AIdro_mVZ4AHe826kUXrFWybMD8xewxe0jxek1j2RABjppew-A=s800-c-k-c0x00ffffff-no-rj",
-    "https://yt3.googleusercontent.com/ytc/AIdro_nN4JNqHsIvck_6leJoMUWw3PQzNSRXL97ugjAn6_TU7mA=s800-c-k-c0x00ffffff-no-rj",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa_VfXmP0aMr_Q9s40gqPchhjHnD82rq1LDg&s",
     "https://yt3.googleusercontent.com/ytc/AIdro_mDEsuYNLn6bo4gIiJEUwyu7BS6pxbyludi-60YjuCxMhY=s800-c-k-c0x00ffffff-no-rj",
     "https://yt3.googleusercontent.com/ytc/AIdro_kKGaEKaafkVObI-xJQPOipJ-B-W2vdD8fuv4oNEW7d894=s800-c-k-c0x00ffffff-no-rj",
     "https://yt3.ggpht.com/jnNqrt1hvGxQYm91BO937kiUYw-UP68Lvmuo78vguXPCE8y7Xzp0DzBd0JSmaenOQ9t6brPNVA=s800-c-k-c0x00ffffff-no-rj",
-    "https://yt3.ggpht.com/ytc/AIdro_nrZfnUxi_DwFSlJyuQvZN-JWkiZHkgwUaZJPhiIu-ZNLI=s800-c-k-c0x00ffffff-no-rj",
+    "https://yt3.googleusercontent.com/dde9bFERO69KRA7zi5RMy0_KePe_BRNufJWP2lgtCv5Pg0wc7gzzr2vL5KothJ3cms7FCLH2=s900-c-k-c0x00ffffff-no-rj",
     "https://yt3.googleusercontent.com/uI3J9rcN5QvBD5rPMj5SaDUp41PIvTergbOWIKam39L7xxpzBT99zqcMiLrJ0qXalORqg0hKjA=s900-c-k-c0x00ffffff-no-rj", //dfsdfsdf
     "https://yt3.ggpht.com/ytc/AIdro_mRcYhzGr2q4ldpSH3WY6Mdcnzu0MvZAmUWJIPkVLHvYsc=s800-c-k-c0x00ffffff-no-rj",
     "https://yt3.googleusercontent.com/r4DIRFDJM9YGviPWg1v3T8sx9ixjhOHQ-RvoI4pNqqABLG4kMttFhk54Ogf5y95wuNWcWdZRCw=s900-c-k-c0x00ffffff-no-rj",
