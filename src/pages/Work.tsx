@@ -67,14 +67,14 @@ const Work = () => {
     "https://yt3.googleusercontent.com/ytc/AIdro_kKGaEKaafkVObI-xJQPOipJ-B-W2vdD8fuv4oNEW7d894=s800-c-k-c0x00ffffff-no-rj",
     "https://yt3.ggpht.com/jnNqrt1hvGxQYm91BO937kiUYw-UP68Lvmuo78vguXPCE8y7Xzp0DzBd0JSmaenOQ9t6brPNVA=s800-c-k-c0x00ffffff-no-rj",
     "https://yt3.ggpht.com/ytc/AIdro_nrZfnUxi_DwFSlJyuQvZN-JWkiZHkgwUaZJPhiIu-ZNLI=s800-c-k-c0x00ffffff-no-rj",
-    "https://yt3.ggpht.com/nTK6AFZrpjDHKNIHq0zqjkWCs3jm9ttQBAGOfIui0zlz_gQzeqAIOtQKfzbSUIA0Mu15HBDfCg=s800-c-k-c0x00ffffff-no-rj",
+    "https://yt3.googleusercontent.com/uI3J9rcN5QvBD5rPMj5SaDUp41PIvTergbOWIKam39L7xxpzBT99zqcMiLrJ0qXalORqg0hKjA=s900-c-k-c0x00ffffff-no-rj", //dfsdfsdf
     "https://yt3.ggpht.com/ytc/AIdro_mRcYhzGr2q4ldpSH3WY6Mdcnzu0MvZAmUWJIPkVLHvYsc=s800-c-k-c0x00ffffff-no-rj",
-    "https://yt3.ggpht.com/Pu4tOoOIwq-MSZ1J1-GQuWbEaDppYESaE9uIMTaTXybQD8xFyRmCawPucKeOVuE4iN385CYn5g=s800-c-k-c0x00ffffff-no-rj",
+    "https://yt3.googleusercontent.com/r4DIRFDJM9YGviPWg1v3T8sx9ixjhOHQ-RvoI4pNqqABLG4kMttFhk54Ogf5y95wuNWcWdZRCw=s900-c-k-c0x00ffffff-no-rj",
     "https://yt3.ggpht.com/SQHMMOa5EnZI4-RZaUi9HUKn5UsBvEidWwGU9dKoFchPBi3foSL_Z63X1bLOwzVpzqL48_diatw=s800-c-k-c0x00ffffff-no-rj",
     "https://yt3.googleusercontent.com/ytc/AIdro_k_k_rcU9yzx6bRJU5CMBjkxbrDY3V7zjxaVRSfDXJ7jB0=s800-c-k-c0x00ffffff-no-rj",
-    "https://yt3.googleusercontent.com/smpvbfd6kga9xo3rTSPe-wZt0VEejfcK9uUcFmZKAkBV8_CJgMBHSBnXn_MHx7_nF8Mul3jJ2Q=s800-c-k-c0x00ffffff-no-rj",
+    "https://yt3.googleusercontent.com/rhICPV-vCayatPwZm0g0cur51rO-L6m1Df2y52I70Dn2tNOdS2K8Aio1Ag7n9UqdxmOeZ-BrQvA=s900-c-k-c0x00ffffff-no-rj",
     "https://yt3.googleusercontent.com/ytc/AIdro_k3-YG_gFDPrcKP27S3C-XX9WkETUI2f4_hS04-IOZbwl8=s800-c-k-c0x00ffffff-no-rj",
-    "https://yt3.googleusercontent.com/QQdpkgefEAqn7BxTvqSLkd9UxIioHoy0Kuk_euUkZ3zJ79hoiIJGY702-XhQCX1H4kHpb7TDWfQ=s800-c-k-c0x00ffffff-no-rj",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWuxIVb_ocbfIH1otR7it9zsasYyK0yq1sw1yI3kzuGBrG90XoEy1gW6AyiFBRnKVEFow",
     "https://yt3.googleusercontent.com/ytc/AIdro_lLS0JR3bWJDxw3HCFO45Bd3BRiPstnMavKje_qpvGea-E=s800-c-k-c0x00ffffff-no-rj",
   ];
 
@@ -286,7 +286,9 @@ const VideoComparisonWrapper = ({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gradient-to-br from-gray-900/80 to-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-2xl border border-white/10">
       {/* Original Video */}
-      <div className="space-y-0 relative"> {/* Reduced space-y */}
+      <div className="space-y-0 relative">
+        {" "}
+        {/* Reduced space-y */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-400 text-white px-4 py-3 font-semibold flex items-center rounded-t-lg">
           <Globe className="mr-2" size={18} />
           <span>Original</span>
@@ -310,7 +312,9 @@ const VideoComparisonWrapper = ({
         </motion.div>
       </div>
       {/* Translated Video */}
-      <div className="space-y-0 relative"> {/* Reduced space-y */}
+      <div className="space-y-0 relative">
+        {" "}
+        {/* Reduced space-y */}
         <div className="bg-gradient-to-r from-red-600 to-red-400 text-white px-4 py-3 font-semibold flex items-center rounded-t-lg">
           <Translate className="mr-2" size={18} />
           <span>Translated</span>
