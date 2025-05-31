@@ -1,8 +1,18 @@
+// src/components/hero.tsx
 "use client"
 
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom'; // No longer needed as pricing button is removed
+import { useState, useEffect } from "react"
+
+const languages = [
+  { name: "Hindi", flag: "🇮🇳" },
+  { name: "Spanish", flag: "🇪🇸" },
+  { name: "Portuguese", flag: "🇵🇹" },
+  { name: "Japanese", flag: "🇯🇵" },
+  { name: "French", flag: "🇫🇷" },
+]
 
 function ElegantShape({
   className,
@@ -71,7 +81,22 @@ function ElegantShape({
 }
 
 export default function Hero() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // No longer used in this component
+  const [currentLanguageIndex, setCurrentLanguageIndex] = useState(0)
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsVisible(false)
+
+      setTimeout(() => {
+        setCurrentLanguageIndex((prev) => (prev + 1) % languages.length)
+        setIsVisible(true)
+      }, 300)
+    }, 2000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   const fadeUpVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -84,6 +109,28 @@ export default function Hero() {
         ease: [0.25, 0.4, 0.25, 1],
       },
     }),
+  }
+
+  const languageTransitionVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      scale: 0.95,
+      transition: {
+        duration: 0.3,
+        ease: "easeIn",
+      },
+    },
   }
 
   return (
@@ -99,7 +146,6 @@ export default function Hero() {
           gradient="from-indigo-500/[0.15]"
           className="left-[-10%] md:left-[-5%] top-[15%] md:top-[20%]"
         />
-
         <ElegantShape
           delay={0.5}
           width={500}
@@ -108,7 +154,6 @@ export default function Hero() {
           gradient="from-rose-500/[0.15]"
           className="right-[-5%] md:right-[0%] top-[70%] md:top-[75%]"
         />
-
         <ElegantShape
           delay={0.4}
           width={300}
@@ -117,7 +162,6 @@ export default function Hero() {
           gradient="from-violet-500/[0.15]"
           className="left-[5%] md:left-[10%] bottom-[5%] md:bottom-[10%]"
         />
-
         <ElegantShape
           delay={0.6}
           width={200}
@@ -126,7 +170,6 @@ export default function Hero() {
           gradient="from-amber-500/[0.15]"
           className="right-[15%] md:right-[20%] top-[10%] md:top-[15%]"
         />
-
         <ElegantShape
           delay={0.7}
           width={150}
@@ -138,7 +181,7 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 md:px-6">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div
             custom={0}
             variants={fadeUpVariants}
@@ -151,55 +194,37 @@ export default function Hero() {
           </motion.div>
 
           <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
-            <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">Reach Beyond</span>
-              <br />
-              <span
-                className={cn(
-                  "bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300",
-                  "font-pacifico"
-                )}
-              >
-                Language Barriers
-              </span>
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 md:mb-6 tracking-tight">
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">Dub your video into</span>
             </h1>
+            <div className="h-44 sm:h-52 md:h-60 flex items-center justify-center mb-6 overflow-hidden">
+              <motion.div
+                key={currentLanguageIndex}
+                variants={languageTransitionVariants}
+                initial="hidden"
+                animate={isVisible ? "visible" : "exit"}
+                className="flex items-center justify-center gap-4 will-change-transform py-4"
+              >
+                <span className="text-5xl sm:text-7xl leading-none">
+                  {languages[currentLanguageIndex].flag}
+                </span>
+                <span
+                  className={cn(
+                    "text-4xl sm:text-6xl md:text-7xl font-bold",
+                    "bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300",
+                    "font-pacifico",
+                    "leading-normal sm:leading-normal md:leading-normal",
+                    "inline-block px-2 py-2"
+                  )}
+                >
+                  {languages[currentLanguageIndex].name}
+                </span>
+              </motion.div>
+            </div>
           </motion.div>
 
-          <motion.div custom={2} variants={fadeUpVariants} initial="hidden" animate="visible">
-            <p className="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4">
-              Translate your videos into Hindi, tap into 500M+ viewers, and skyrocket your revenue and reach.
-            </p>
-          </motion.div>
+          {/* Removed the introductory paragraph */}
 
-          <motion.button
-            onClick={() => navigate('/pricing')}
-            className="relative inline-flex items-center overflow-hidden px-8 py-4 rounded-full text-white font-bold text-xl shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            style={{
-              background: "linear-gradient(45deg, #4f46e5, #9333ea, #ec4899, #4f46e5)",
-              backgroundSize: "300% 300%",
-            }}
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "200% 50%", "0% 50%"],
-              y: [0, -4, 0],
-            }}
-            transition={{
-              backgroundPosition: { duration: 3, ease: "linear", repeat: Infinity },
-              y: { duration: 1.5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="relative z-10">Pricing</span>
-            <motion.div
-              className="absolute inset-0 bg-white opacity-20 rounded-full"
-              animate={{ scale: [1, 1.15, 1] }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-          </motion.button>
         </div>
       </div>
 
