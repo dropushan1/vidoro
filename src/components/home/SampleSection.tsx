@@ -1,12 +1,11 @@
 // src/components/home/SampleSection.tsx
-"use client"
+"use client";
 
 import { useState, useRef, useEffect } from "react";
-import { cn } from "@/lib/utils"; // Assuming you have this utility function
+import { cn } from "@/lib/utils";
 
-// Define languages with their corresponding video filenames
-// Ensure these video files are in your public/sample/ folder
 const languages = [
+  { name: "English (Original)", flag: "🇺🇸", file: "english.mp4" },
   { name: "Hindi", flag: "🇮🇳", file: "hindi.mp4" },
   { name: "Spanish", flag: "🇪🇸", file: "spanish.mp4" },
   { name: "Portuguese", flag: "🇵🇹", file: "portuguese.mp4" },
@@ -18,103 +17,133 @@ export default function SampleSection() {
   const [selectedLanguageIndex, setSelectedLanguageIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentTime, setCurrentTime] = useState(0);
-  const [isLoading, setIsLoading] = useState(true); // To handle initial load and seeking
+  const [isLoading, setIsLoading] = useState(true);
+  const [isPaused, setIsPaused] = useState(true);
 
   const handleLanguageChange = (index: number) => {
     if (videoRef.current) {
-      // Store current time before changing source
       setCurrentTime(videoRef.current.currentTime);
-      // Pause current video to prevent continued playback while new one loads
       videoRef.current.pause();
+      setIsPaused(true);
     }
     setSelectedLanguageIndex(index);
-    setIsLoading(true); // Set loading true when language changes
+    setIsLoading(true);
   };
 
   useEffect(() => {
     if (videoRef.current) {
       const videoElement = videoRef.current;
       const newSrc = `/sample/${languages[selectedLanguageIndex].file}`;
-
-      // If the current video source is already the one we want, and we're not explicitly reloading
-      // then just try to play and exit. This prevents unnecessary re-setting of src.
-      if (videoElement.src.endsWith(newSrc) && !isLoading) {
+      if (videoElement.src.endsWith(newSrc) && !isLoading && videoElement.currentTime > 0) {
+          videoElement.play().then(() => {
+            setIsLoading(false);
+            setIsPaused(false);
+          }).catch(e => {
+            console.warn("Autoplay prevented:", e);
+            setIsLoading(false);
+            setIsPaused(true);
+          });
           return;
       }
-
       const onLoadedMetadata = () => {
-        videoElement.currentTime = currentTime; // Seek to stored time
-        videoElement.play().catch(e => {
-          console.warn("Autoplay prevented:", e);
-          // If autoplay fails, ensure video starts playing on user interaction
-          // You might want to show a play button here.
+        videoElement.currentTime = currentTime;
+        videoElement.play().then(() => {
+          setIsLoading(false);
+          setIsPaused(false);
+        }).catch(e => {
+          console.warn("Autoplay with sound prevented:", e);
+          setIsLoading(false);
+          setIsPaused(true);
         });
-        setIsLoading(false); // Video is loaded and ready
       };
-
-      // Remove previous listener to prevent multiple callbacks
       videoElement.removeEventListener('loadedmetadata', onLoadedMetadata);
-      // Add new listener for the current source change
       videoElement.addEventListener('loadedmetadata', onLoadedMetadata, { once: true });
-
       videoElement.src = newSrc;
-      videoElement.load(); // Important: load the new source
-    }
-  }, [selectedLanguageIndex, currentTime]); // Dependency array: rerun when language or currentTime changes
-
-  // Initial load effect
-  useEffect(() => {
-    // This effect runs once on mount to set the initial video source
-    // and ensures the initial loading state is handled.
-    if (videoRef.current && isLoading) {
-      const videoElement = videoRef.current;
-      const initialSrc = `/sample/${languages[selectedLanguageIndex].file}`;
-
-      const onInitialLoadedMetadata = () => {
-        // No specific seek time needed for initial load, just play from beginning
-        videoElement.play().catch(e => console.warn("Initial autoplay prevented:", e));
-        setIsLoading(false);
-      };
-
-      videoElement.addEventListener('loadedmetadata', onInitialLoadedMetadata, { once: true });
-      videoElement.src = initialSrc;
       videoElement.load();
-
-      return () => {
-        videoElement.removeEventListener('loadedmetadata', onInitialLoadedMetadata);
-      };
+      setIsLoading(true);
+      setIsPaused(true);
     }
-  }, []); // Empty dependency array means this runs once on mount
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedLanguageIndex]);
 
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+    const handleTimeUpdate = () => {
+      if (!videoElement.paused && !videoElement.seeking) {
+        setCurrentTime(videoElement.currentTime);
+      }
+    };
+    videoElement.addEventListener('timeupdate', handleTimeUpdate);
+    return () => {
+      videoElement.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []);
 
   return (
-    <section className="py-16 md:py-24 bg-[#0a0a0a] text-white">
+    // Uses bg-background from body
+    <section className="py-16 md:py-24 text-foreground">
       <div className="container mx-auto px-4 md:px-6">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 md:mb-16
-                       bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
-          Hear the Difference
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">
+          {/* Gradient text should work on both, or choose solid theme colors */}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-red-400 to-blue-500 dark:from-red-400 dark:via-red-300 dark:to-blue-400">
+            Sample Dubbed Video
+          </span>
         </h2>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="aspect-video bg-black rounded-lg overflow-hidden shadow-2xl mb-8 md:mb-12 relative">
+        <div className="max-w-3xl mx-auto mt-10 md:mt-12">
+          {/* Video player container, using card style for background */}
+          <div className="aspect-video bg-card rounded-lg overflow-hidden shadow-2xl mb-8 md:mb-12 relative">
             {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-75 z-10">
-                <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="absolute inset-0 flex items-center justify-center bg-card/75 dark:bg-black/75 z-10 backdrop-blur-sm">
+                <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
               </div>
+            )}
+            {(!isLoading && isPaused) && (
+                <div
+                    className="absolute inset-0 flex items-center justify-center bg-black/50 dark:bg-black/70 z-10 cursor-pointer transition-opacity duration-300 hover:bg-opacity-75"
+                    onClick={() => {
+                        if (videoRef.current) {
+                            videoRef.current.play().catch(e => console.warn("Play overlay click prevented:", e));
+                        }
+                    }}
+                >
+                    <svg
+                        className="w-20 h-20 text-white opacity-90 transition-transform duration-300 transform hover:scale-110"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </div>
             )}
             <video
               ref={videoRef}
               className="w-full h-full object-cover"
               controls
-              muted // Start muted for better autoplay success rate across browsers
-              onTimeUpdate={() => { // Continuously update current time while playing
-                if (videoRef.current && !videoRef.current.paused) {
-                    setCurrentTime(videoRef.current.currentTime);
+              muted={false}
+              playsInline
+              onPlay={() => { setIsLoading(false); setIsPaused(false); }}
+              onPlaying={() => { setIsLoading(false); setIsPaused(false); }}
+              onPause={() => setIsPaused(true)}
+              onWaiting={() => setIsLoading(true)}
+              onSeeking={() => setIsLoading(true)}
+              onSeeked={() => {
+                if(videoRef.current && !videoRef.current.paused) {
+                  videoRef.current.play().catch(e => console.warn("Play after seek prevented: ", e));
+                }
+                setIsLoading(false);
+              }}
+              onEnded={() => {
+                setIsPaused(true);
+                setCurrentTime(0);
+              }}
+              onLoadedData={() => {
+                if (videoRef.current) {
+                    setIsPaused(videoRef.current.paused);
                 }
               }}
-              onPlay={() => setIsLoading(false)} // If user initiates play, hide loading
-              onSeeking={() => setIsLoading(true)} // Show loading while seeking
-              onSeeked={() => setIsLoading(false)} // Hide loading after seeking
             >
               Your browser does not support the video tag.
             </video>
@@ -129,8 +158,8 @@ export default function SampleSection() {
                   "flex items-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-medium transition-all duration-200 ease-in-out",
                   "border-2",
                   selectedLanguageIndex === index
-                    ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white border-transparent shadow-lg scale-105"
-                    : "bg-white/[0.05] border-white/[0.2] hover:bg-white/[0.1] hover:border-white/[0.3] text-white/80"
+                    ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white border-transparent shadow-xl scale-105 ring-2 ring-purple-400 ring-offset-2 ring-offset-background" // Active button uses its own strong colors
+                    : "bg-muted hover:bg-accent text-muted-foreground hover:text-accent-foreground border-border" // Theme-aware button style
                 )}
               >
                 <span className="text-lg sm:text-xl">{lang.flag}</span>

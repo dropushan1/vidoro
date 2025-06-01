@@ -10,65 +10,65 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 7%;
+    --background: 0 0% 100%; /* Light mode: white */
+    --foreground: 0 0% 3.9%; /* Light mode: almost black */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
+    --card-foreground: 0 0% 3.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
+    --popover-foreground: 0 0% 3.9%;
 
-    --primary: 0 91% 42%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 7%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
 
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 7%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 89%;
-    --input: 0 0% 89%;
-    --ring: 0 91% 42%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 222.2 47.4% 11.2%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 0 0% 7%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 0%; /* Dark mode: true black */
+    --foreground: 0 0% 98%; /* Dark mode: almost white */
 
-    --card: 0 0% 7%;
+    --card: 0 0% 3.5%; /* Darker card background, e.g., #090909 */
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 7%;
+    --popover: 0 0% 3.5%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 91% 42%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 0 0% 13%;
+    --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 13%;
-    --muted-foreground: 0 0% 63%;
+    --muted: 0 0% 14.9%; /* Muted background for dark mode, e.g. #262626 */
+    --muted-foreground: 0 0% 63.9%;
 
-    --accent: 0 0% 13%;
+    --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62% 30%;
+    --destructive: 0 72.2% 50.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 13%;
-    --input: 0 0% 13%;
-    --ring: 0 91% 42%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 98%; /* Adjusted ring for dark mode */
   }
 }
 
@@ -78,9 +78,12 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Smooth transitions for color changes */
+    @apply transition-colors duration-300;
   }
 }
 
+/* Keep other styles from your original index.css */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -92,6 +95,7 @@
   }
 
   .wave-bg {
+    /* Consider making this theme-aware or removing if not used */
     background: linear-gradient(90deg, rgba(31, 41, 55, 0.2), rgba(59, 130, 246, 0.3), rgba(239, 68, 68, 0.3), rgba(31, 41, 55, 0.2));
     background-size: 400% 100%;
     animation: wave 8s linear infinite;
@@ -114,12 +118,12 @@
   }
 }
 
-/* Custom range slider styles for better mobile experience */
 input[type=range] {
   -webkit-appearance: none;
   appearance: none;
   margin: 10px 0;
   width: 100%;
+  background: transparent; /* Make track transparent */
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -128,26 +132,27 @@ input[type=range]::-webkit-slider-thumb {
   height: 24px;
   width: 24px;
   border-radius: 50%;
-  background: #ffffff;
+  @apply bg-primary dark:bg-primary; /* Use theme color */
   cursor: pointer;
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
-  margin-top: -10px; /* offset for the track height */
+  margin-top: -9px; /* Adjust for track height */
 }
 
 input[type=range]::-moz-range-thumb {
   height: 24px;
   width: 24px;
   border-radius: 50%;
-  background: #ffffff;
+  @apply bg-primary dark:bg-primary;
   cursor: pointer;
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  border: none; /* Reset border for Firefox */
 }
 
 input[type=range]::-ms-thumb {
   height: 24px;
   width: 24px;
   border-radius: 50%;
-  background: #ffffff;
+  @apply bg-primary dark:bg-primary;
   cursor: pointer;
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
@@ -155,36 +160,47 @@ input[type=range]::-ms-thumb {
 input[type=range]::-webkit-slider-runnable-track {
   height: 6px;
   border-radius: 3px;
+  @apply bg-muted dark:bg-muted; /* Use theme color */
 }
+input[type=range]::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  @apply bg-muted dark:bg-muted;
+}
+input[type=range]::-ms-track {
+  height: 6px;
+  border-radius: 3px;
+  @apply bg-muted dark:bg-muted;
+  border-color: transparent;
+  color: transparent;
+}
+
 
 input[type=range]:focus {
   outline: none;
 }
 
-/* Add this to improve touch handling on mobile */
 @media (pointer: coarse) {
   input[type=range]::-webkit-slider-thumb {
     height: 28px;
     width: 28px;
+    margin-top: -11px; /* Adjust for larger thumb */
   }
-
   input[type=range] {
     height: 28px;
   }
 }
 
-/* Fix for double border issue - Add these lines below */
 input:focus,
 textarea:focus {
   outline: none !important;
   box-shadow: none !important;
-  border-color: rgb(239, 68, 68) !important; /* red-500 - ensure this matches your red color */
-  --tw-ring-offset-shadow: 0 0 #0000 !important; /* Remove ring offset */
-  --tw-ring-shadow: 0 0 #0000 !important;        /* Remove ring shadow */
-  border-width: 2px !important;                   /* Optional: Adjust border width if needed */
+  @apply border-ring; /* Use theme ring color for border */
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  border-width: 2px !important;
 }
 
-/* If you are using shadcn/ui or similar libraries that might add focus rings */
 .ring-offset-background,
 [data-focus-visible]:focus-visible {
   --tw-ring-offset-width: 0px !important;

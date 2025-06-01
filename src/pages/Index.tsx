@@ -4,51 +4,35 @@ import Hero from "@/components/home/Hero";
 import SampleSection from "@/components/home/SampleSection";
 import ServiceBoxes from "@/components/home/ServiceBoxes";
 import Testimonials from "@/components/home/Testimonials";
-import TeamAndScenes from "@/components/home/TeamAndScenes";
+import FAQ from "@/components/home/FAQ";
 import HomeLayout from "@/components/home/HomeLayout";
 import { motion } from "framer-motion";
 
 const Index = () => {
-  const componentVariants = { /* ... */ };
+  const componentVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
 
   return (
     <HomeLayout>
-      {/* Hero Section */}
-      <motion.div /* ... */ > <Hero /> </motion.div>
+      <Hero />
 
-      {/* Sample Section */}
-      <motion.div /* ... */ > <SampleSection /> </motion.div>
+      <motion.div variants={componentVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+        <SampleSection />
+      </motion.div>
 
-      {/* Service Boxes Section */}
-      <motion.div /* ... */ > <ServiceBoxes /> </motion.div>
+      <motion.div variants={componentVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+        <ServiceBoxes />
+      </motion.div>
 
-      {/* === TEST AREA START === */}
-      {/* Comment out Testimonials first and check */}
-      {/* <motion.div variants={componentVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} > <Testimonials /> </motion.div> */}
-
-      {/* If Testimonials wasn't it, uncomment it and comment out TeamAndScenes, then check */}
-      {/* <motion.div variants={componentVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} > <TeamAndScenes /> </motion.div> */}
-      {/* === TEST AREA END === */}
-
-      {/* Make sure to uncomment one of these if it wasn't the issue, or if it was, find the bug within that component */}
-       <motion.div
-        variants={componentVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
+      <motion.div variants={componentVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
         <Testimonials />
       </motion.div>
 
-      <motion.div
-        variants={componentVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <TeamAndScenes />
+      <motion.div variants={componentVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+        <FAQ />
       </motion.div>
-
     </HomeLayout>
   );
 };
