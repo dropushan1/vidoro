@@ -195,7 +195,7 @@ export default function Hero() {
 
           <motion.button
             onClick={handleContactUsClick}
-            className="relative inline-flex items-center overflow-hidden px-8 py-4 rounded-full text-primary-foreground font-bold text-xl shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring mt-6"
+            className="relative inline-flex items-center overflow-hidden px-8 py-4 rounded-full text-white font-bold text-xl shadow-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring mt-6"
             style={{ // Animated background will likely look best on dark, but let's keep
               background: "linear-gradient(45deg, #4f46e5, #9333ea, #ec4899, #4f46e5)",
               backgroundSize: "300% 300%",
@@ -211,7 +211,7 @@ export default function Hero() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="relative z-10">Contact Us</span>
+            <span className="relative z-10 text-white">Contact Us</span>
             {/* This overlay makes the button look "glossy", works on dark. May need tweaking for light */}
             <motion.div
               className="absolute inset-0 bg-white opacity-20 rounded-full dark:opacity-20 opacity-10"

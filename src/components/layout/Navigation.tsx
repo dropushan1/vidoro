@@ -15,10 +15,6 @@ const Navigation: React.FC = () => {
           <span className="font-bold sm:inline-block text-foreground">Vidoro</span>
         </a>
         <nav className="flex items-center gap-4">
-          {/* Add other navigation links here if you want them back */}
-          <a href="/contact" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-            Contact
-          </a>
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
