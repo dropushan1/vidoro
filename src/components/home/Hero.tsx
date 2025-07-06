@@ -5,12 +5,11 @@ import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useState, useEffect } from "react"
 
-const languages = [
-  { name: "Hindi", flag: "🇮🇳" },
-  { name: "Spanish", flag: "🇪🇸" },
-  { name: "Portuguese", flag: "🇵🇹" },
-  { name: "Japanese", flag: "🇯🇵" },
-  { name: "French", flag: "🇫🇷" },
+const benefits = [
+  { name: "Sponsors" },
+  { name: "Indian Fans" },
+  { name: "Revenue" },
+  { name: "Channel Growth" },
 ]
 
 // ElegantShape's styling is dark-centric and complex to make fully theme-aware easily.
@@ -82,17 +81,17 @@ function ElegantShape({
 }
 
 export default function Hero() {
-  const [currentLanguageIndex, setCurrentLanguageIndex] = useState(0)
+  const [currentBenefitIndex, setCurrentBenefitIndex] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsVisible(false)
       setTimeout(() => {
-        setCurrentLanguageIndex((prev) => (prev + 1) % languages.length)
+        setCurrentBenefitIndex((prev) => (prev + 1) % benefits.length)
         setIsVisible(true)
-      }, 280)
-    }, 1900)
+      }, 280) // Shortened transition for quicker cycling
+    }, 1900) // Adjusted interval for new text length
     return () => clearInterval(interval)
   }, [])
 
@@ -109,7 +108,7 @@ export default function Hero() {
     }),
   }
 
-  const languageTransitionVariants = {
+  const benefitTransitionVariants = {
     hidden: { opacity: 0, y: 18, scale: 0.97 },
     visible: {
       opacity: 1,
@@ -162,20 +161,18 @@ export default function Hero() {
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-2 md:mb-3 tracking-tight">
               {/* Gradient text that works on both light/dark, or adjust */}
               <span className="bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80 dark:from-white dark:to-white/80">
-                Dub your video into
+                Unlock More
               </span>
             </h1>
             <div className="h-40 sm:h-48 md:h-56 flex items-center justify-center mb-6 overflow-hidden">
               <motion.div
-                key={currentLanguageIndex}
-                variants={languageTransitionVariants}
+                key={currentBenefitIndex}
+                variants={benefitTransitionVariants}
                 initial="hidden"
                 animate={isVisible ? "visible" : "exit"}
                 className="flex items-center justify-center gap-4 will-change-transform py-4"
               >
-                <span className="text-5xl sm:text-7xl leading-none">
-                  {languages[currentLanguageIndex].flag}
-                </span>
+                {/* No flag needed for just text */}
                 <span
                   className={cn(
                     "text-4xl sm:text-6xl md:text-7xl font-bold",
@@ -187,7 +184,7 @@ export default function Hero() {
                     "inline-block px-2 py-2"
                   )}
                 >
-                  {languages[currentLanguageIndex].name}
+                  {benefits[currentBenefitIndex].name}
                 </span>
               </motion.div>
             </div>

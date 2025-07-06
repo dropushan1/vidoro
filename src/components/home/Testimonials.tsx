@@ -2,96 +2,92 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card"; // Assuming Card uses theme variables
+import { Card, CardContent } from "@/components/ui/card";
 import { motion, useInView } from "framer-motion";
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { FiUploadCloud } from "react-icons/fi";
-import { MdTranslate, MdAudiotrack } from "react-icons/md";
+import { ChevronRight, Zap } from "lucide-react";
 
 // Testimonials data remains the same
-
 const testimonials = [
-  {
-    name: "Sarah Miller",
-    image:
-      "https://www.economicliberties.us/wp-content/uploads/2022/11/SM-Headshot-2.png",
-    content:
-      "Adding multiple languages was so simple with their audio tracks. Our global audience loves it!",
-  },
-  {
-    name: (
-      <a
-        href="https://www.instagram.com/thevarunmayya/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-foreground hover:underline" // Updated for theme
-      >
-        Varun Mayya
-      </a>
-    ),
-    image:
-      "https://yt3.ggpht.com/ytc/AIdro_nrZfnUxi_DwFSlJyuQvZN-JWkiZHkgwUaZJPhiIu-ZNLI=s800-c-k-c0x00ffffff-no-rj",
-    content:
-      "Vidoro's audio tracks integrate perfectly with YouTube. Reaching more countries is now a breeze. Highly recommend! 👍",
-  },
-  // ... other testimonials
-   {
-    name: "Sabin Mathew",
-    image:
-      "https://yt3.googleusercontent.com/uI3J9rcN5QvBD5rPMj5SaDUp41PIvTergbOWIKam39L7xxpzBT99zqcMiLrJ0qXalORqg0hKjA=s800-c-k-c0x00ffffff-no-rj",
-    content:
-      "Quality voice-overs in different languages without creating new videos? Vidoro gets it right.",
-  },
-  {
-    name: "Chris Wilson",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSor30vW4SqoTpWEHKCGuF7Suvm7-TVWlb-Nw&s",
-    content:
-      "Effortlessly reaching viewers worldwide by just adding an audio track. Vidoro made global expansion simple for us.",
-  },
-  {
-    name: "Nitish Rajput",
-    image:
-      "https://yt3.googleusercontent.com/i4-MMwgecNSAYn2a_7uHH3HnNsl4xOQlM9tRt47CSfYtfV5fqYD1nl49rnuR29jmLNlSUoaCqA=s900-c-k-c0x00ffffff-no-rj",
-    content: "Game-changer for global reach. Simple and effective.",
-  },
-  {
-    name: "David Thompson",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_790iFGstZRyTV_G4w5Nqz-884DPh3tj39g&s",
-    content:
-      "Vidoro's audio tracks are the easiest way to offer multi-language support on YouTube. So glad we found them.",
-  },
-  {
-    name: "Gaurav Thakur",
-    image:
-      "https://yt3.googleusercontent.com/ytc/AIdro_nN4JNqHsIvck_6leJoMUWw3PQzNSRXL97ugjAn6_TU7mA=s800-c-k-c0x00ffffff-no-rj",
-    content:
-      "The voice quality in multiple languages is spot on. Helps my content connect with more people.",
-  },
-  {
-    name: "Michael Anderson",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1jJm8I1Y7ScxGsjHIje8S14dzWLU18hC7bA&s",
-    content:
-      "Simple solution for going global. Just add the audio track, and new viewers can pick their language. Saves so much time. 🙂",
-  },
-  {
-    name: "Amanda Martinez",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTovH25CYLeDFwlkH_qF4_FNvhus8RcxJq0rg&s",
-    content:
-      "Vidoro streamlines the multi-language process. Get the audio, upload to YouTube, done. Couldn't be easier.",
-  },
-  {
-    name: "Jason Smith",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1P8RPg3H6sbj40agtWZfkYlTars7z9Is4sQ&s",
-    content: "More languages on my videos? Vidoro makes it happen. Views are up.",
-  },
+    {
+      name: "Sarah Miller",
+      image:
+        "https://www.economicliberties.us/wp-content/uploads/2022/11/SM-Headshot-2.png",
+      content:
+        "Our Hindi channel's bringing in new viewers and even sponsors, which is great. Vidoro's been a solid help.",
+    },
+    {
+      name: (
+        <a
+          href="https://www.instagram.com/thevarunmayya/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white hover:underline"
+        >
+          Varun Mayya
+        </a>
+      ),
+      image:
+        "https://yt3.ggpht.com/ytc/AIdro_nrZfnUxi_DwFSlJyuQvZN-JWkiZHkgwUaZJPhiIu-ZNLI=s800-c-k-c0x00ffffff-no-rj",
+      content:
+        "Wasn't sure at first, but Vidoro is legit. Hindi channel's growing fast now. 👍",
+    },
+    {
+      name: "Sabin Mathew",
+      image:
+        "https://yt3.googleusercontent.com/uI3J9rcN5QvBD5rPMj5SaDUp41PIvTergbOWIKam39L7xxpzBT99zqcMiLrJ0qXalORqg0hKjA=s800-c-k-c0x00ffffff-no-rj",
+      content:
+        "Translations used to be a headache for me. Vidoro just takes care of it, and the quality is good.",
+    },
+    {
+      name: "Chris Wilson",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSor30vW4SqoTpWEHKCGuF7Suvm7-TVWlb-Nw&s",
+      content:
+        "India's a big audience we wanted to tap into. Vidoro helped us do that, made it much easier.",
+    },
+    {
+      name: "Nitish Rajput",
+      image:
+        "https://yt3.googleusercontent.com/i4-MMwgecNSAYn2a_7uHH3HnNsl4xOQlM9tRt47CSfYtfV5fqYD1nl49rnuR29jmLNlSUoaCqA=s900-c-k-c0x00ffffff-no-rj",
+      content: "Vidoro is awesome. They get it.",
+    },
+    {
+      name: "David Thompson",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_790iFGstZRyTV_G4w5Nqz-884DPh3tj39g&s",
+      content:
+        "Glad we found Vidoro. Reaching Indian viewers is way easier now for us.",
+    },
+    {
+      name: "Gaurav Thakur",
+      image:
+        "https://yt3.googleusercontent.com/ytc/AIdro_nN4JNqHsIvck_6leJoMUWw3PQzNSRXL97ugjAn6_TU7mA=s800-c-k-c0x00ffffff-no-rj",
+      content:
+        "Vidoro's translations are on point. They really get my content's vibe, which is key.",
+    },
+    {
+      name: "Michael Anderson",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1jJm8I1Y7ScxGsjHIje8S14dzWLU18hC7bA&s",
+      content:
+        "Cost was a concern, but it's been worth it for us. Hindi views are up. 🙂",
+    },
+    {
+      name: "Amanda Martinez",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTovH25CYLeDFwlkH_qF4_FNvhus8RcxJq0rg&s",
+      content:
+        "Vidoro makes the whole thing simple. Big time-saver, which I appreciate.",
+    },
+    {
+      name: "Jason Smith",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1P8RPg3H6sbj40agtWZfkYlTars7z9Is4sQ&s",
+      content: "Translations good. Views up. Worth it yeh.",
+    },
 ];
-
 
 type TestimonialProps = {
   name: string | JSX.Element;
@@ -101,7 +97,6 @@ type TestimonialProps = {
 
 const TestimonialCard = ({ name, image, content }: TestimonialProps) => {
   const getInitials = (n: string | JSX.Element): string => {
-    // ... getInitials logic remains the same
     let textForInitials = "";
     if (typeof n === 'string') {
       textForInitials = n;
@@ -128,7 +123,6 @@ const TestimonialCard = ({ name, image, content }: TestimonialProps) => {
   };
 
   return (
-    // Uses Card component which should be theme-aware from shadcn/ui or similar
     <Card className="w-[320px] bg-card/80 dark:bg-card/50 backdrop-blur-md border border-border mx-4 rounded-lg shadow-lg shrink-0">
       <CardContent className="p-6">
         <div className="flex items-center gap-4 mb-4">
@@ -142,50 +136,13 @@ const TestimonialCard = ({ name, image, content }: TestimonialProps) => {
             </h3>
           </div>
         </div>
-        <p className="text-muted-foreground leading-relaxed"> {/* Use muted-foreground for content */}
+        <p className="text-muted-foreground leading-relaxed">
           {content}
         </p>
       </CardContent>
     </Card>
   );
 };
-
-const howItWorksSteps = [
-  {
-    id: "step1",
-    icon: FiUploadCloud,
-    title: "Submit Your Video",
-    description: "Send us your English video content and specify which languages you need.",
-    iconColor: "text-sky-500 dark:text-sky-300",
-    hoverIconColor: "group-hover:text-sky-600 dark:group-hover:text-sky-200",
-    iconBgGradient: "dark:from-sky-500/80 dark:via-cyan-500/70 dark:to-sky-600/80 from-sky-500/20 via-cyan-500/15 to-sky-600/20",
-    shadowColor: "hover:shadow-sky-500/20", // This shadow is fine for both
-    stepNumberBg: "bg-gradient-to-r from-sky-500 to-cyan-400", // Keep strong colors for step numbers
-  },
-  // ... other steps (update iconColor, hoverIconColor, iconBgGradient for light/dark)
-  {
-    id: "step2",
-    icon: MdTranslate,
-    title: "We Translate & Dub",
-    description: "Our team translates your content and creates professional audio tracks with the help of AI.",
-    iconColor: "text-purple-500 dark:text-purple-300",
-    hoverIconColor: "group-hover:text-purple-600 dark:group-hover:text-purple-200",
-    iconBgGradient: "dark:from-purple-500/80 dark:via-indigo-500/70 dark:to-purple-600/80 from-purple-500/20 via-indigo-500/15 to-purple-600/20",
-    shadowColor: "hover:shadow-purple-500/20",
-    stepNumberBg: "bg-gradient-to-r from-purple-500 to-indigo-400",
-  },
-  {
-    id: "step3",
-    icon: MdAudiotrack,
-    title: "Receive Audio Tracks",
-    description: "Get high-quality audio files ready to add to your YouTube videos.",
-    iconColor: "text-emerald-500 dark:text-emerald-300",
-    hoverIconColor: "group-hover:text-emerald-600 dark:group-hover:text-emerald-200",
-    iconBgGradient: "dark:from-emerald-500/80 dark:via-green-500/70 dark:to-emerald-600/80 from-emerald-500/20 via-green-500/15 to-emerald-600/20",
-    shadowColor: "hover:shadow-emerald-500/20",
-    stepNumberBg: "bg-gradient-to-r from-emerald-500 to-green-400",
-  },
-];
 
 export default function Testimonials() {
   const firstHalf = testimonials.slice(0, 5);
@@ -196,7 +153,6 @@ export default function Testimonials() {
   const howItWorksInView = useInView(howItWorksRef, { once: true, amount: 0.1 });
 
   useEffect(() => {
-    // GSAP animation logic remains the same
     let firstRowAnim: gsap.core.Tween | null = null;
     let secondRowAnim: gsap.core.Tween | null = null;
     const initTimeout = setTimeout(() => {
@@ -222,13 +178,7 @@ export default function Testimonials() {
     };
   }, []);
 
-  // Arrow colors can be theme-dependent if needed, or use neutral/feature colors
-  const arrowLineColor = "bg-gradient-to-r from-red-400/70 via-blue-400/70 to-purple-400/70"; // Keep as feature
-  const arrowHeadColor = "border-blue-400/80"; // Keep as feature
-  const arrowDotColor = "bg-blue-400"; // Keep as feature
-
   return (
-    // Uses bg-background from body
     <section className="py-24 overflow-x-hidden relative text-foreground">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
@@ -239,11 +189,10 @@ export default function Testimonials() {
           </h2>
         </div>
 
-        {/* Fades for scrolling marquee - ensure they match background */}
         <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-r from-background via-background/80 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-l from-background via-background/80 to-transparent z-10 pointer-events-none" />
 
-        <div className="mb-24"> {/* Testimonial rows */}
+        <div className="mb-24">
           <div className="mb-8"><div ref={firstRowRef} className="flex">{firstHalf.map((t, i) => <TestimonialCard key={`f-${i}`} {...t} />)}{firstHalf.map((t, i) => <TestimonialCard key={`fc-${i}`} {...t} />)}</div></div>
           <div><div ref={secondRowRef} className="flex">{secondHalf.map((t, i) => <TestimonialCard key={`s-${i}`} {...t} />)}{secondHalf.map((t, i) => <TestimonialCard key={`sc-${i}`} {...t} />)}</div></div>
         </div>
@@ -260,62 +209,118 @@ export default function Testimonials() {
             </p>
           </div>
 
-          <div className="relative max-w-7xl mx-auto">
-            {/* Desktop How It Works */}
-            <div className="hidden md:block">
-              <div className="flex items-start justify-between relative">
-                {howItWorksSteps.map((step, index) => (
-                  <React.Fragment key={step.id}>
-                    <motion.div
-                      className={`group bg-card backdrop-blur-sm border border-border p-8 rounded-2xl shadow-2xl flex flex-col items-center text-center transition-all duration-500 hover:border-border/70 ${step.shadowColor} relative z-10 w-[30%] max-w-xs`}
-                      initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                      animate={howItWorksInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                      transition={{ duration: 0.6, delay: index * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-                      whileHover={{ y: -8, scale: 1.03 }}
-                    >
-                      <div className={`absolute -top-4 -left-4 w-10 h-10 ${step.stepNumberBg} rounded-full flex items-center justify-center text-white font-bold text-md shadow-lg`}>{index + 1}</div>
-                      <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-gradient-to-br ${step.iconBgGradient} border border-border/30 group-hover:border-border/50 transition-all duration-300 group-hover:scale-110 shadow-lg`}>
-                        <step.icon className={`w-10 h-10 ${step.iconColor} ${step.hoverIconColor} transition-colors duration-300`} />
-                      </div>
-                      <h3 className="text-2xl font-semibold text-card-foreground mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-foreground group-hover:to-foreground/70 dark:group-hover:from-white dark:group-hover:to-gray-300 transition-all duration-300">{step.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed group-hover:text-accent-foreground transition-colors duration-300 text-sm">{step.description}</p>
-                    </motion.div>
-                    {index < howItWorksSteps.length - 1 && ( /* Arrow Connector */
-                      <motion.div className="flex-1 flex items-center justify-center px-1 sm:px-2 md:px-4 relative z-0 mt-16" initial={{ opacity: 0, scale: 0.8 }} animate={howItWorksInView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}>
-                        <div className="relative w-full max-w-[120px] xl:max-w-[150px]">
-                          <motion.div className={`h-1 ${arrowLineColor} rounded-full`} initial={{ width: 0 }} animate={howItWorksInView ? { width: "100%" } : {}} transition={{ duration: 0.8, delay: index * 0.2 + 0.5 }}/>
-                          <motion.div className={`absolute -right-1 -top-[7px] w-4 h-4 border-r-2 border-t-2 ${arrowHeadColor} transform rotate-45`} initial={{ opacity: 0, x: -10 }} animate={howItWorksInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.5, delay: index * 0.2 + 0.8 }}/>
-                          <motion.div className={`absolute top-[1px] left-0 w-2 h-2 ${arrowDotColor} rounded-full`} animate={{ x: ["0%", "100%", "0%"], opacity: [0, 1, 0] }} transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY, delay: index * 0.2 + 1, ease: "easeInOut" }}/>
-                        </div>
-                      </motion.div>
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-            {/* Mobile How It Works */}
-            <div className="md:hidden space-y-12">
-              {howItWorksSteps.map((step, index) => (
-                <React.Fragment key={`mobile-${step.id}`}>
-                  <motion.div className={`group bg-card backdrop-blur-sm border border-border p-6 rounded-2xl shadow-2xl flex flex-col items-center text-center transition-all duration-500 hover:border-border/70 ${step.shadowColor} relative`} initial={{ opacity: 0, y: 50, scale: 0.95 }} animate={howItWorksInView ? { opacity: 1, y: 0, scale: 1 } : {}} transition={{ duration: 0.5, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }} whileHover={{ y: -6, scale: 1.02 }}>
-                    <div className={`absolute -top-3 -left-3 w-8 h-8 ${step.stepNumberBg} rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg`}>{index + 1}</div>
-                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-gradient-to-br ${step.iconBgGradient} border border-border/30 group-hover:border-border/50 transition-all duration-300 group-hover:scale-105 shadow-md`}>
-                      <step.icon className={`w-8 h-8 ${step.iconColor} ${step.hoverIconColor} transition-colors duration-300`}/>
+          <div className="relative my-16 max-w-6xl mx-auto">
+            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 transform -translate-y-1/2 hidden md:block"></div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+              {/* Step 1 */}
+              <motion.div
+                className="bg-card rounded-xl p-6 flex flex-col items-center text-center border border-border shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:shadow-purple-500/20 hover:border-purple-500/40"
+                initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                animate={howItWorksInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0, ease: "easeOut" }}
+                whileHover={{ y: -10, scale: 1.03 }}
+              >
+                <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-purple-500/30 rounded-full flex items-center justify-center">
+                    <span className="text-xl font-bold text-card-foreground">1</span>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-card-foreground">
+                  Your English Channel
+                </h3>
+                <p className="text-muted-foreground">
+                  Continue creating content as usual on your original English channel.
+                </p>
+                <div className="mt-4 w-full h-40 bg-card/70 rounded-lg overflow-hidden relative border border-border">
+                  <div className="absolute top-0 left-0 w-full h-8 bg-card/80 flex items-center px-3">
+                    <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    <div className="ml-auto text-xs text-muted-foreground">
+                      youtube.com
                     </div>
-                    <h3 className="text-xl font-semibold text-card-foreground mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-foreground group-hover:to-foreground/70 dark:group-hover:from-white dark:group-hover:to-gray-300 transition-all duration-300">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed group-hover:text-accent-foreground transition-colors duration-300">{step.description}</p>
-                  </motion.div>
-                  {index < howItWorksSteps.length - 1 && ( /* Mobile Arrow Connector */
-                    <motion.div className="flex justify-center" initial={{ opacity: 0, y: -10 }} animate={howItWorksInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: index * 0.15 + 0.3 }}>
-                      <div className="relative h-[50px]">
-                        <motion.div className={`w-1 ${arrowLineColor} rounded-full`} initial={{ height: 0 }} animate={howItWorksInView ? { height: "100%" } : {}} transition={{ duration: 0.6, delay: index * 0.15 + 0.4 }}/>
-                        <motion.div className={`absolute -bottom-[2px] -left-[7px] w-4 h-4 border-b-2 border-l-2 ${arrowHeadColor} transform rotate-45`} initial={{ opacity: 0, y: -5 }} animate={howItWorksInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: index * 0.15 + 0.7 }}/>
-                        <motion.div className={`absolute left-[1px] top-0 w-2 h-2 ${arrowDotColor} rounded-full`} animate={{ y: ["0%", "100%", "0%"], opacity: [0, 1, 0] }} transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY, delay: index * 0.15 + 1, ease: "easeInOut" }} />
-                      </div>
-                    </motion.div>
-                  )}
-                </React.Fragment>
-              ))}
+                  </div>
+                  <div className="absolute top-8 left-0 w-full h-16 bg-gradient-to-r from-purple-600/20 to-blue-600/20 flex items-center px-4">
+                    <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-xs font-bold text-white">
+                      EN
+                    </div>
+                    <div className="ml-3">
+                      <div className="h-2 w-32 bg-muted rounded-full"></div>
+                      <div className="h-2 w-20 bg-muted rounded-full mt-2"></div>
+                    </div>
+                  </div>
+                  <div className="absolute top-28 left-0 w-full px-4">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="h-16 bg-muted rounded-md flex items-center justify-center"><div className="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center"><div className="w-0 h-0 border-t-4 border-t-transparent border-l-6 border-l-white border-b-4 border-b-transparent"></div></div></div>
+                      <div className="h-16 bg-muted rounded-md flex items-center justify-center"><div className="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center"><div className="w-0 h-0 border-t-4 border-t-transparent border-l-6 border-l-white border-b-4 border-b-transparent"></div></div></div>
+                    </div>
+                    <div className="h-2 w-full bg-muted rounded-full mt-2"></div>
+                    <div className="h-2 w-3/4 bg-muted rounded-full mt-2"></div>
+                  </div>
+                </div>
+                <div className="flex justify-center mt-6 md:hidden"><div className="w-10 h-10 bg-pink-500/30 rounded-full flex items-center justify-center animate-pulse"><ChevronRight className="w-6 h-6 text-pink-400" /></div></div>
+              </motion.div>
+
+              <div className="absolute left-[30%] top-1/2 transform -translate-y-1/2 -translate-x-1/2 hidden md:block z-10">
+                <motion.div className="w-12 h-12 bg-pink-500/30 rounded-full flex items-center justify-center animate-pulse" animate={howItWorksInView ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}><ChevronRight className="w-8 h-8 text-pink-400" /></motion.div>
+              </div>
+
+              {/* Step 2 */}
+              <motion.div
+                className="bg-card rounded-xl p-6 flex flex-col items-center text-center border border-border shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:shadow-pink-500/20 hover:border-pink-500/40"
+                initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                animate={howItWorksInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+                whileHover={{ y: -10, scale: 1.03 }}
+              >
+                <div className="w-16 h-16 bg-pink-500/20 rounded-full flex items-center justify-center mb-4"><div className="w-12 h-12 bg-pink-500/30 rounded-full flex items-center justify-center"><span className="text-xl font-bold text-card-foreground">2</span></div></div>
+                <h3 className="text-xl font-bold mb-2 text-card-foreground">Vidoro's Magic</h3>
+                <p className="text-muted-foreground">We Translate, Optimize, and Upload to Your Hindi Channel.</p>
+                <div className="mt-4 w-full h-40 bg-card/70 rounded-lg overflow-hidden relative border border-border">
+                  <div className="absolute inset-0 flex items-center justify-center"><motion.div className="w-20 h-20 rounded-full bg-pink-500/20 animate-pulse flex items-center justify-center" animate={howItWorksInView ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 1, repeat: Infinity, delay: 0.7 }}><Zap className="w-10 h-10 text-pink-400" /></motion.div></div>
+                  <div className="absolute top-0 left-0 w-full h-full flex">
+                    <div className="w-1/2 border-r border-dashed border-pink-500/50 flex items-center justify-center"><div className="space-y-2 px-4"><div className="h-2 w-20 bg-muted rounded-full"></div><div className="h-2 w-16 bg-muted rounded-full"></div><div className="h-2 w-24 bg-muted rounded-full"></div><div className="text-xs text-muted-foreground mt-2">English</div></div></div>
+                    <div className="w-1/2 flex items-center justify-center"><div className="space-y-2 px-4"><div className="h-2 w-20 bg-pink-500/40 rounded-full"></div><div className="h-2 w-16 bg-pink-500/40 rounded-full"></div><div className="h-2 w-24 bg-pink-500/40 rounded-full"></div><div className="text-xs text-muted-foreground mt-2">हिन्दी</div></div></div>
+                  </div>
+                  <motion.div className="absolute top-1/4 left-1/3 w-2 h-2 rounded-full bg-pink-400" animate={howItWorksInView ? { scale: [0, 1.5, 0], opacity: [0, 1, 0] } : {}} transition={{ duration: 2, repeat: Infinity, delay: 1 }}></motion.div>
+                  <motion.div className="absolute top-3/4 left-2/3 w-2 h-2 rounded-full bg-purple-400" animate={howItWorksInView ? { scale: [0, 1.5, 0], opacity: [0, 1, 0] } : {}} transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}></motion.div>
+                  <motion.div className="absolute top-1/2 left-1/4 w-2 h-2 rounded-full bg-blue-400" animate={howItWorksInView ? { scale: [0, 1.5, 0], opacity: [0, 1, 0] } : {}} transition={{ duration: 2, repeat: Infinity, delay: 2 }}></motion.div>
+                </div>
+                <div className="flex justify-center mt-6 md:hidden"><motion.div className="w-10 h-10 bg-red-500/30 rounded-full flex items-center justify-center animate-pulse" animate={howItWorksInView ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}><ChevronRight className="w-6 h-6 text-red-400" /></motion.div></div>
+              </motion.div>
+
+              <div className="absolute left-[70%] top-1/2 transform -translate-y-1/2 -translate-x-1/2 hidden md:block z-10">
+                <motion.div className="w-12 h-12 bg-red-500/30 rounded-full flex items-center justify-center animate-pulse" animate={howItWorksInView ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}><ChevronRight className="w-8 h-8 text-red-400" /></motion.div>
+              </div>
+
+              {/* Step 3 */}
+              <motion.div
+                className="bg-card rounded-xl p-6 flex flex-col items-center text-center border border-border shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:shadow-red-500/20 hover:border-red-500/40"
+                initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                animate={howItWorksInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+                whileHover={{ y: -10, scale: 1.03 }}
+              >
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-4"><div className="w-12 h-12 bg-red-500/30 rounded-full flex items-center justify-center"><span className="text-xl font-bold text-card-foreground">3</span></div></div>
+                <h3 className="text-xl font-bold mb-2 text-card-foreground">Your Hindi Channel</h3>
+                <p className="text-muted-foreground">Watch your Hindi channel grow with perfectly translated content.</p>
+                <div className="mt-4 w-full h-40 bg-card/70 rounded-lg overflow-hidden relative border border-border">
+                  <div className="absolute top-0 left-0 w-full h-8 bg-card/80 flex items-center px-3"><div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div><div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div><div className="w-3 h-3 rounded-full bg-green-500"></div><div className="ml-auto text-xs text-muted-foreground">youtube.com</div></div>
+                  <div className="absolute top-8 left-0 w-full h-16 bg-gradient-to-r from-red-600/20 to-orange-600/20 flex items-center px-4"><div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-xs font-bold text-white">HI</div><div className="ml-3"><div className="h-2 w-32 bg-muted rounded-full"></div><div className="h-2 w-20 bg-muted rounded-full mt-2"></div></div></div>
+                  <div className="absolute top-28 left-0 w-full px-4">
+                    <div className="grid grid-cols-2 gap-2"><div className="h-16 bg-muted rounded-md flex items-center justify-center"><div className="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center"><div className="w-0 h-0 border-t-4 border-t-transparent border-l-6 border-l-white border-b-4 border-b-transparent"></div></div></div><div className="h-16 bg-muted rounded-md flex items-center justify-center"><div className="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center"><div className="w-0 h-0 border-t-4 border-t-transparent border-l-6 border-l-white border-b-4 border-b-transparent"></div></div></div></div>
+                    <div className="h-2 w-full bg-muted rounded-full mt-2"></div><div className="h-2 w-3/4 bg-muted rounded-full mt-2"></div>
+                  </div>
+                  <div className="absolute bottom-2 right-2"><div className="flex items-center space-x-1"><div className="h-3 w-1 bg-green-500 rounded-sm"></div><div className="h-4 w-1 bg-green-500 rounded-sm"></div><div className="h-5 w-1 bg-green-500 rounded-sm"></div><div className="h-6 w-1 bg-green-500 rounded-sm"></div><div className="h-7 w-1 bg-green-500 rounded-sm"></div></div></div>
+                </div>
+              </motion.div>
+
+            </div>
+            <div className="max-w-2xl mx-auto text-center mt-16 mb-10">
+              <p className="text-muted-foreground mb-8">
+                Create a new YouTube channel, grant Vidoro "Manager/Editor" role, and we'll handle the rest. Your videos will be automatically translated and uploaded to your Hindi channel within 8-24 hours.
+              </p>
             </div>
           </div>
         </div>

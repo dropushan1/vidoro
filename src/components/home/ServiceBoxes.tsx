@@ -1,20 +1,22 @@
 // src/components/home/ServiceBoxes.tsx
+"use client"
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { IconType } from 'react-icons';
 import { MdTranslate, MdGraphicEq, MdTimer, MdTrendingUp } from 'react-icons/md';
+// --- NEW DEPENDENCY: You need to `npm install recharts` for the bar chart ---
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 
 interface Service {
   title: string;
   desc: string;
   icon: IconType;
-  // Gradients are tricky for light/dark. Keep them subtle or define variants.
-  // For now, making them very subtle on light mode or dark-mode specific.
-  gradient: string; // e.g., "dark:from-purple-600/20 dark:to-blue-500/20 from-purple-600/5 to-blue-500/5"
-  iconColorClass: string; // e.g., "text-purple-600 dark:text-purple-400"
-  hoverIconColorClass: string; // e.g., "group-hover:text-blue-500 dark:group-hover:text-blue-400"
-  hoverTitleGradientClasses: string[]; // e.g. ["group-hover:from-purple-500", "group-hover:to-blue-500", "dark:group-hover:from-purple-400", "dark:group-hover:to-blue-400"]
+  gradient: string;
+  iconColorClass: string;
+  hoverIconColorClass: string;
+  hoverTitleGradientClasses: string[];
 }
 
 const services: Service[] = [
@@ -56,6 +58,15 @@ const services: Service[] = [
   }
 ];
 
+// --- DATA FOR THE NEW BAR CHART ---
+const chartData = [
+  { country: "India", users: 500, flag: "🇮🇳" },
+  { country: "USA", users: 240, flag: "🇺🇸" },
+  { country: "Brazil", users: 144, flag: "🇧🇷" },
+  { country: "Indonesia", users: 139, flag: "🇮🇩" },
+  { country: "Japan", users: 78, flag: "🇯🇵" },
+];
+
 const ServiceBoxes = () => {
   const { ref: serviceBoxesRef, inView: serviceBoxesInView } = useInView({
     triggerOnce: true,
@@ -63,17 +74,13 @@ const ServiceBoxes = () => {
   });
   const { ref: communitySectionRef, inView: communitySectionInView } = useInView({
     triggerOnce: true,
-    threshold: 0.25,
+    threshold: 0.15,
   });
-
-  const pieRadius = 40;
-  const pieCircumference = 2 * Math.PI * pieRadius;
-  const pieSegment80 = 0.8 * pieCircumference;
-  const pieGap20 = 0.2 * pieCircumference;
 
   return (
     <section className="py-20 px-4 text-foreground" ref={serviceBoxesRef}>
       <div className="container mx-auto">
+        {/* The four service boxes at the top remain unchanged */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
             <motion.div
@@ -101,45 +108,67 @@ const ServiceBoxes = () => {
           ))}
         </div>
 
+        {/* --- NEW COMMUNITY SECTION: REPLACES THE OLD PIE CHART --- */}
         <motion.div
           ref={communitySectionRef}
-          className="mt-24 md:mt-32 py-12 md:py-16 rounded-xl bg-muted border border-border overflow-hidden relative" // Use bg-muted
+          className="mt-24 md:mt-32"
           initial={{ opacity: 0, y: 50 }}
           animate={communitySectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
         >
-          <div className="absolute inset-0 bg-gradient-to-br dark:from-blue-500/[0.05] dark:via-transparent dark:to-purple-500/[0.05] from-blue-500/[0.03] via-transparent to-purple-500/[0.03] blur-3xl" />
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-evenly gap-x-8 gap-y-12 px-6">
-            <div className="relative w-60 h-60 sm:w-72 sm:h-72 md:w-[300px] md:h-[300px] shrink-0">
-              <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
-                <circle cx="50" cy="50" r={pieRadius} fill="transparent" strokeWidth="18" className="stroke-border" />
-                <circle
-                  cx="50"
-                  cy="50"
-                  r={pieRadius}
-                  fill="transparent"
-                  strokeWidth="18"
-                  strokeDasharray={`${pieSegment80} ${pieGap20}`}
-                  strokeLinecap="round"
-                  className="stroke-orange-500" // Keep feature color strong
-                />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-3">
-                 <span className="text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80 dark:from-white dark:to-white/80">
-                  80%
-                 </span>
-                <p className="text-sm sm:text-base font-semibold mt-1 sm:mt-2 max-w-[160px] sm:max-w-[200px] text-muted-foreground">
-                  of the world does not speak English
-                </p>
-              </div>
+          {/* Main Heading */}
+          <div className="text-center mb-12">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70 dark:from-white dark:to-gray-400">
+              Conquer the World's Largest Audience
+            </h3>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+              India is YouTube's biggest market. Dubbing your content is key to unlocking immense growth and engagement.
+            </p>
+          </div>
+
+          {/* Chart and Stats Cards Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+            {/* Bar Chart */}
+            <div className="lg:col-span-3 h-96 p-4 bg-card rounded-2xl border border-border relative">
+                <div className="absolute top-4 left-6">
+                    <h4 className="font-bold text-card-foreground">YouTube Users by Country</h4>
+                    <p className="text-sm text-muted-foreground">Monthly active users in millions</p>
+                </div>
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={chartData} margin={{ top: 60, right: 10, left: -20, bottom: 20 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border) / 0.5)" />
+                        <XAxis dataKey="country" stroke="hsl(var(--muted-foreground) / 0.5)" fontSize={12} tickLine={false} axisLine={false} tickMargin={10} />
+                        <YAxis stroke="hsl(var(--muted-foreground) / 0.5)" fontSize={12} tickLine={false} axisLine={false} tickMargin={10} />
+                        <Tooltip
+                            cursor={{ fill: 'hsl(var(--muted) / 0.5)' }}
+                            content={({ active, payload, label }) =>
+                                active && payload && payload.length ? (
+                                    <div className="bg-card p-3 border border-border rounded-lg shadow-lg">
+                                        <p className="text-base font-bold text-card-foreground">{`${chartData.find(d => d.country === label)?.flag} ${label}`}</p>
+                                        <p className="text-sm text-muted-foreground">{`Users: ${payload[0].value}M`}</p>
+                                    </div>
+                                ) : null
+                            }
+                        />
+                        <Bar dataKey="users" radius={[4, 4, 0, 0]} className="fill-orange-500" />
+                    </BarChart>
+                </ResponsiveContainer>
             </div>
-            <div className="text-center md:text-left md:max-w-md lg:max-w-lg relative z-10">
-              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70 dark:from-white dark:to-gray-400">
-                Expand your community
-              </h3>
-              <p className="text-lg sm:text-xl text-muted-foreground">
-                Dubbing lets more people discover your videos
-              </p>
+
+            {/* Stats Cards */}
+            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+              <div className="p-6 text-center bg-card rounded-2xl border border-border">
+                <div className="text-4xl mb-2">🇮🇳</div>
+                <h4 className="font-semibold text-card-foreground">India's Dominance</h4>
+                <p className="text-4xl font-bold text-orange-500 my-2">500M+</p>
+                <p className="text-xs px-3 py-1 bg-muted rounded-full inline-block font-medium">#1 Largest Market Globally</p>
+              </div>
+              <div className="p-6 text-center bg-card rounded-2xl border border-border">
+                <div className="text-4xl mb-2">🚀</div>
+                <h4 className="font-semibold text-card-foreground">Growth Opportunity</h4>
+                <p className="text-4xl font-bold text-sky-500 my-2">2x</p>
+                <p className="text-xs px-3 py-1 bg-muted rounded-full inline-block font-medium">Larger than the US Market</p>
+              </div>
             </div>
           </div>
         </motion.div>
